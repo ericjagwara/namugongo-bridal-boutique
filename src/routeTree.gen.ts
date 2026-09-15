@@ -13,7 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as JournalRouteImport } from './routes/journal'
+import { Route as JournalIndexRouteImport } from './routes/journal.index'
+import { Route as JournalSlugRouteImport } from './routes/journal.$slug'
+import { Route as ShopIndexRouteImport } from './routes/shop.index'
+import { Route as ShopProductIdRouteImport } from './routes/shop.$productId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -35,9 +38,24 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const JournalRoute = JournalRouteImport.update({
-  id: '/journal',
-  path: '/journal',
+const JournalIndexRoute = JournalIndexRouteImport.update({
+  id: '/journal/',
+  path: '/journal/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JournalSlugRoute = JournalSlugRouteImport.update({
+  id: '/journal/$slug',
+  path: '/journal/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopIndexRoute = ShopIndexRouteImport.update({
+  id: '/shop/',
+  path: '/shop/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopProductIdRoute = ShopProductIdRouteImport.update({
+  id: '/shop/$productId',
+  path: '/shop/$productId',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -46,14 +64,20 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
-  '/journal': typeof JournalRoute
+  '/journal/$slug': typeof JournalSlugRoute
+  '/shop/$productId': typeof ShopProductIdRoute
+  '/journal/': typeof JournalIndexRoute
+  '/shop/': typeof ShopIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
-  '/journal': typeof JournalRoute
+  '/journal/$slug': typeof JournalSlugRoute
+  '/shop/$productId': typeof ShopProductIdRoute
+  '/journal': typeof JournalIndexRoute
+  '/shop': typeof ShopIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -61,14 +85,42 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
-  '/journal': typeof JournalRoute
+  '/journal/$slug': typeof JournalSlugRoute
+  '/shop/$productId': typeof ShopProductIdRoute
+  '/journal/': typeof JournalIndexRoute
+  '/shop/': typeof ShopIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/collections' | '/contact' | '/journal'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/collections'
+    | '/contact'
+    | '/journal/$slug'
+    | '/shop/$productId'
+    | '/journal/'
+    | '/shop/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/collections' | '/contact' | '/journal'
-  id: '__root__' | '/' | '/about' | '/collections' | '/contact' | '/journal'
+  to:
+    | '/'
+    | '/about'
+    | '/collections'
+    | '/contact'
+    | '/journal/$slug'
+    | '/shop/$productId'
+    | '/journal'
+    | '/shop'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/collections'
+    | '/contact'
+    | '/journal/$slug'
+    | '/shop/$productId'
+    | '/journal/'
+    | '/shop/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,7 +128,10 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CollectionsRoute: typeof CollectionsRoute
   ContactRoute: typeof ContactRoute
-  JournalRoute: typeof JournalRoute
+  JournalSlugRoute: typeof JournalSlugRoute
+  ShopProductIdRoute: typeof ShopProductIdRoute
+  JournalIndexRoute: typeof JournalIndexRoute
+  ShopIndexRoute: typeof ShopIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -109,11 +164,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/journal': {
-      id: '/journal'
+    '/journal/': {
+      id: '/journal/'
       path: '/journal'
-      fullPath: '/journal'
-      preLoaderRoute: typeof JournalRouteImport
+      fullPath: '/journal/'
+      preLoaderRoute: typeof JournalIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/journal/$slug': {
+      id: '/journal/$slug'
+      path: '/journal/$slug'
+      fullPath: '/journal/$slug'
+      preLoaderRoute: typeof JournalSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop/': {
+      id: '/shop/'
+      path: '/shop'
+      fullPath: '/shop/'
+      preLoaderRoute: typeof ShopIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop/$productId': {
+      id: '/shop/$productId'
+      path: '/shop/$productId'
+      fullPath: '/shop/$productId'
+      preLoaderRoute: typeof ShopProductIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -124,7 +200,10 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   CollectionsRoute: CollectionsRoute,
   ContactRoute: ContactRoute,
-  JournalRoute: JournalRoute,
+  JournalSlugRoute: JournalSlugRoute,
+  ShopProductIdRoute: ShopProductIdRoute,
+  JournalIndexRoute: JournalIndexRoute,
+  ShopIndexRoute: ShopIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -15,23 +15,21 @@ import { SiteShell } from "../components/site-shell";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
-        </div>
+    <main className="container-site section-pad text-center">
+      <p className="kicker">Page not found</p>
+      <h1 className="page-title mx-auto max-w-3xl">This page has wandered off the aisle.</h1>
+      <p className="page-lead mx-auto">
+        The link may be old or mistyped. Try the shop or head back home.
+      </p>
+      <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <Link to="/" className="btn btn-ink">
+          Go home
+        </Link>
+        <Link to="/collections" className="btn btn-outline">
+          Browse the shop
+        </Link>
       </div>
-    </div>
+    </main>
   );
 }
 
@@ -79,11 +77,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "OZ Fashion House" },
-      { name: "description", content: "Bridal fashion and wedding accessories in Namugongo, Uganda." },
+      {
+        name: "description",
+        content: "Bridal fashion and wedding accessories in Namugongo, Uganda.",
+      },
       { name: "author", content: "OZ Fashion House" },
+      { name: "theme-color", content: "#17130f" },
       { property: "og:title", content: "OZ Fashion House" },
-      { property: "og:description", content: "Bridal fashion and wedding accessories in Namugongo, Uganda." },
+      {
+        property: "og:description",
+        content: "Bridal fashion and wedding accessories in Namugongo, Uganda.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og-image.jpg" },
+      { property: "og:site_name", content: "OZ Fashion House" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
@@ -93,8 +100,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600&display=swap" },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@400;500&display=swap",
+      },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "icon", href: "/favicon.png", type: "image/png", sizes: "192x192" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
     ],
   }),
   shellComponent: RootShell,
