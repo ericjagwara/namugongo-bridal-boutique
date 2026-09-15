@@ -1,0 +1,18 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowUpRight } from "lucide-react";
+import brideImage from "../assets/oz-bride-editorial.jpg";
+import groomImage from "../assets/oz-groom-editorial.jpg";
+import bridesmaidsImage from "../assets/oz-bridesmaids-editorial.jpg";
+
+export const Route = createFileRoute("/journal")({ head: () => ({ meta: [
+  { title: "Wedding Style Journal | OZ Fashion House" }, { name: "description", content: "Wedding fashion inspiration and practical styling guidance from OZ Fashion House in Namugongo." },
+  { property: "og:title", content: "The OZ Wedding Style Journal" }, { property: "og:description", content: "Ideas for coordinating your wedding wardrobe beautifully." },
+  { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+] }), component: JournalPage });
+
+const stories=[
+  { title:"How to choose a bridal silhouette that feels like you", category:"For the bride", excerpt:"Start with how you want to feel, then consider movement, setting and the details you naturally return to.", image:brideImage, read:"5 min read" },
+  { title:"A modern groom’s guide to wedding-day tailoring", category:"For the groom", excerpt:"The difference is in proportion, fabric and the finishing touches that make formalwear personal.", image:groomImage, read:"4 min read" },
+  { title:"Coordinated, not identical: dressing your bridesmaids", category:"The bridal party", excerpt:"Build a harmonious palette while giving every bridesmaid room to feel comfortable and confident.", image:bridesmaidsImage, read:"6 min read" },
+];
+function JournalPage(){return <main><section className="page-intro"><div className="page-intro-inner"><p className="eyebrow">The OZ Journal</p><h1 className="page-title">Wedding style,<br/>considered.</h1><p className="page-lead">Thoughtful guidance for bringing your wedding wardrobe together—from the first gown appointment to the final accessory.</p></div></section><section className="px-5 py-20 sm:px-8 sm:py-28 lg:px-12"><div className="mx-auto max-w-screen-2xl"><article className="grid gap-8 border-b border-border pb-16 lg:grid-cols-[1.3fr_0.7fr] lg:items-center"><img src={stories[0].image} alt="Bridal silhouette inspiration" width={1200} height={1504} className="aspect-[16/10] w-full object-cover object-top"/><div><p className="eyebrow">Featured · {stories[0].category}</p><h2 className="mt-4 font-display text-4xl leading-tight sm:text-5xl">{stories[0].title}</h2><p className="mt-5 font-sans text-sm leading-7 text-muted-foreground">{stories[0].excerpt}</p><p className="mt-7 font-sans text-xs uppercase tracking-[0.15em] text-primary">{stories[0].read}</p></div></article><div className="mt-16 grid gap-10 md:grid-cols-2">{stories.slice(1).map(story=><article key={story.title}><img src={story.image} alt={story.title} loading="lazy" width={1200} height={1504} className="aspect-[16/10] w-full object-cover"/><div className="border-b border-border py-6"><p className="eyebrow">{story.category} · {story.read}</p><h2 className="mt-3 font-display text-3xl sm:text-4xl">{story.title}</h2><p className="mt-4 font-sans text-sm leading-7 text-muted-foreground">{story.excerpt}</p></div></article>)}</div><div className="mt-20 bg-secondary p-8 text-center sm:p-14"><p className="eyebrow">Ready to begin?</p><h2 className="mt-4 font-display text-4xl sm:text-5xl">Turn inspiration into your wedding look.</h2><Link to="/collections" className="mt-7 text-link">Shop collections <ArrowUpRight className="size-4"/></Link></div></div></section></main>}
